@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial</title>
+    <style>
+         body {
+            background-image: url('fond-marine.jpg');
+            background-size: cover; 
+            background-position: center; 
+            background-attachment: fixed; 
+        }
+        .content {
+            text-align: center;
+            padding: 210px;
+            color: white;
+
+            .button {
+            display: inline-block;
+            padding: 10px 40px;
+            background-color: #96a280; 
+            border: none;
+            color: white;
+            text-align: right;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 25px;
+            margin: 20px 50px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            border-radius: 7px;
+        }
+        .button:hover {
+            background-color: #103012; 
+        }
+        .cadre {
+        border: 2px solid rgb(0, 0, 0); 
+        padding: 10px; 
+        font-size: 25px; 
+        }
+
+    }
+        
+    </style>
+</head>
+
+<body>
+    <div class="content">
+      
+        
+            <h1 id="title">Pablo: A Card Game Tutorial</h1>
+            <div class="cadre">
+            <p id="content"> Pablo is a captivating card game designed for 2-6 players, although larger decks can accommodate more participants. It combines elements of memory, strategy, and tactical competitiveness for an engaging gaming experience.
+            </p>
+            
+        </div>
+        <button id="Button" class="button" onclick="changeContent()">Next</button>   
+      
+    </div>
+    <script>
+        
+        var titles = ["Deck Composition", "Dealing", "Objective", "Gameplay", "Conclusion",""];
+        var contents = [" A standard deck of 52 cards is used, including two jokers Numeric. cards (2-10) have point values equal to their face values.Aces are worth one point, while royals (Jacks, Queens, Kings) are worth 10 points each.Jokers carry a value of -5 points each."
+        , "The dealer is determined randomly, progressing clockwise in subsequent rounds. Each player is dealt 4 cards face down. The remaining deck forms a draw pile, with the top card revealed to start the discard pile. Players privately memorize and replace the bottom 2 cards of their hand. "
+        , "Minimize the total value of cards in your hand.Players may call 'Pablo' to end a round, anticipating the lowest score."
+        , "Players draw from the deck or discard pile, replacing a card in their hand, swap matching cards, utilize special tricks (7s and 8s) adding strategic depth; rounds continue until a player exceeds 100 points, and the player with the lowest total score wins.", 
+        "Pablo offers an immersive gaming experience blending luck and strategy. With its unique mechanics and scoring system, it promises hours of entertainment for players of all skill levels.",""];
+        
+        var currentIndex = 0;
+
+        function changeContent() {
+           
+            var currentTitle = titles[currentIndex];
+            var currentContent = contents[currentIndex];
+
+            
+            document.getElementById("title").innerText = currentTitle;
+            document.getElementById("content").innerText = currentContent;
+
+           
+            currentIndex = (currentIndex + 1) % titles.length;
+                    if (currentIndex === 5) {
+            
+            document.getElementById("Button").onclick = function() {
+                
+                window.location.href = "index.html";
+            };
+        }
+            
+        }
+        
+    </script>
+    
+</body>
+</html>
