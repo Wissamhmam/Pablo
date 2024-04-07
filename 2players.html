@@ -11,9 +11,124 @@
             background-position: center; 
             background-attachment: fixed; 
         }
+        
+        .card {
+            width: 93px;
+            height: 145px;
+            perspective: 1000px;
+            position: absolute;
+            top: 48.6%;
+            left: 54.5%;
+            transform: translate(-50%, -50%);
+            animation: dealAnimation 0.6s ease; /* Apply dealing animation */
+        }
+        
+        .card:nth-child(-n+4) {
+            top: 40%; /* Adjust position for player 1 cards */
+            left: 15%;
+            
+        }
+
+        
+        .card:nth-child(n+5):nth-child(-n+8) {
+            top: 90%; /* Adjust position for player 2 cards */
+            left: 90%;
+        }
+
+        @keyframes dealAnimation {
+            0% {
+                transform: translateY(-1000px) rotateY(90deg); /* Initial position for animation */
+            }
+            100% {
+                transform: translate(-50%, -50%); /* Final position for animation */
+            }
+        }
+        #cardContainer {
+            display: flex;
+            justify-content: space-between; /* Distribute space between cards */
+            margin: 0 auto; /* Center align the cards */
+            width: 80%; /* Adjust the width of the card container */
+        }
+
+        .card-inner {
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .card:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            overflow: hidden;
+            backface-visibility: hidden;
+        }
+        .card-front img, .card-back img {
+            width: 93px;
+            height: auto;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+        }
+
     </style>
 </head>
 <body>
+    <div id="cardContainer"></div>
+
+    <script>
+        // Array of card image paths
+        const cardImages = ["1.png", "2.png", "3.png", "4.png", "5.png", "6.png", "7.png", "8.png", "9.png", "10.png", "-1.png", "+20.png", "Switch.png", "taych.png", "Toured.png"]; // Add more paths if needed
+
+        // Function to generate card HTML dynamically
+        function generateCardHTML(imagePath) {
+            return `
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="card.png" alt="Front of the card">
+                        </div>
+                        <div class="card-back">
+                            <img src="${imagePath}" alt="Back of the card">
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Function to shuffle an array
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Get card container element
+        const cardContainer = document.getElementById("cardContainer");
+
+        // Generate HTML for each card and duplicate them
+        cardImages.forEach(imagePath => {
+            for (let i = 0; i < 4; i++) { // Add four copies of each card
+                cardContainer.innerHTML += generateCardHTML(imagePath);
+            }
+        });
+
+        // Shuffle the cards after loading
+        document.addEventListener("DOMContentLoaded", () => {
+            const cards = document.querySelectorAll(".card");
+            const shuffledCards = shuffleArray(Array.from(cards));
+            cardContainer.innerHTML = ""; // Clear the container
+            shuffledCards.forEach(card => cardContainer.appendChild(card));
+        });
+    </script>
     
 </body>
 </html>
